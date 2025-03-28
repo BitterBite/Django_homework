@@ -2,13 +2,35 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Рецепты</title>
+    <title>Рецепт {{ dish_name }}</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-{% for ingredient, amount in recipe.items %}
-    <p>{{ ingredient }}: {{ amount }}</p>
-{% empty %}
-    <p>Такого рецепта не знаю :(</p>
-{% endfor %}
+    <h1>Рецепт: {{ dish_name }}</h1>
+    
+    <div class="recipe-content">
+        <h2>Ингредиенты (на {{ servings }} порции):</h2>
+        <ul>
+            {% for ingredient, amount in recipe.items %}
+            <li>{{ ingredient }}: {{ amount }}</li>
+            {% endfor %}
+        </ul>
+        
+    <div class="servings-control">
+            <h3>Изменить количество порций:</h3>
+            <a href="?servings=1">1</a>
+            <a href="?servings=2">2</a>
+            <a href="?servings=4">4</a>
+        </div>
+    </div> 
+
+    <div class="available-recipes">
+        <h3>Другие доступные рецепты:</h3>
+        <ul>
+            {% for recipe_name in available_recipes %}
+            <li><a href="{% url 'recipe' recipe_name %}">{{ recipe_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
